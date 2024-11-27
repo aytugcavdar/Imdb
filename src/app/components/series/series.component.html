@@ -1,0 +1,101 @@
+<div class="search-container">
+  <div class="search-box">
+    <input 
+      matInput 
+      type="text" 
+      placeholder="Dizi arayın..." 
+      [(ngModel)]="searchQuery" 
+    />
+    <button mat-raised-button color="primary" (click)="search()">Ara</button>
+  </div>
+</div>
+
+<div class="card-container">
+  <mat-card *ngFor="let series of seriesList" (click)="selectSeries(series.imdbID)" class="series-card">
+    <img mat-card-image [src]="series.Poster !== 'N/A' ? series.Poster : 'assets/placeholder.png'" alt="Poster">
+    <mat-card-header>
+      <mat-card-title>{{ series.Title }}</mat-card-title>
+      <mat-card-subtitle>{{ series.Year }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Type: {{ series.Type | titlecase }}</p>
+      <p>IMDb ID: {{ series.imdbID }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<mat-accordion *ngIf="selectedSeries" class="seasons-container">
+  <mat-expansion-panel *ngFor="let season of seasons; let i = index" (opened)="getEpisodes(i + 1)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ season }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    
+    <div *ngIf="episodes.length === 0" class="no-episodes">
+      Bölümler yükleniyor...
+    </div>
+    
+    <div *ngFor="let episode of episodes" class="episode-card">
+      <mat-card class="episode-card-content">
+        <mat-card-header>
+          <mat-card-title>{{ episode.Title }}</mat-card-title>
+          <mat-card-subtitle>
+            IMDb Rating: 
+            <span class="rating-icon" [ngClass]="getRatingClass(episode.imdbRating)">
+              {{ episode.imdbRating }}
+            </span>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Episode: {{ episode.Episode }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+<div class="seasons-container">
+  <mat-card *ngFor="let season of seasons; let i = index" (click)="getEpisodes(i + 1)" class="season-card">
+    <mat-card-header>
+      <mat-card-title>{{ season }}</mat-card-title>
+    </mat-card-header>
+  </mat-card>
+</div>
+
+<div class="episode-list" *ngIf="episodes.length > 0">
+  <mat-card *ngFor="let episode of episodes" class="episode-card">
+    <mat-card-header>
+      <mat-card-title>{{ episode.Title }}</mat-card-title>
+      <mat-card-subtitle>
+        IMDb Rating: <span [ngClass]="getRatingClass(episode.imdbRating)">{{ episode.imdbRating }}</span>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Episode: {{ episode.Episode }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
+<mat-accordion *ngIf="selectedSeries" class="seasons-container">
+  <mat-expansion-panel *ngFor="let season of seasons; let i = index" (opened)="getEpisodes(i + 1)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{ season }}</mat-panel-title>
+    </mat-expansion-panel-header>
+    
+    <div class="episode-grid">
+      <div *ngFor="let episode of episodes" class="episode-grid-item">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{ episode.Title }}</mat-card-title>
+            <mat-card-subtitle>
+              IMDb: <span [ngClass]="getRatingClass(episode.imdbRating)">{{ episode.imdbRating }}</span>
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Bölüm: {{ episode.Episode }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
