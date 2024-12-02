@@ -16,14 +16,12 @@ export class ImdbService {
       .set('s', query)
       .set('type', 'series') // Sadece dizileri getirir
       .set('apiKey', this.apiKey);
-    return this.http.get(this.apiUrl, { params });
+    return this.http.get<any>(this.apiUrl, { params });
   }
 
-  getSeriesDetails(imdbID: string): Observable<any> {
-    const params = new HttpParams()
-      .set('i', imdbID)
-      .set('apiKey', this.apiKey);
-    return this.http.get(this.apiUrl, { params });
+  getSeriesDetails(id: string): Observable<any> {
+    const url = `${this.apiUrl}?i=${id}&apikey=${this.apiKey}&plot=full`;
+    return this.http.get<any>(url);  // API'den dizi detaylarını döndür
   }
   getSeasonDetails(imdbID: string, season: number): Observable<any> {
     const params = new HttpParams()
@@ -33,4 +31,11 @@ export class ImdbService {
     return this.http.get(this.apiUrl, { params });
   }
   
+  getSeriesById(imdbID: string) {
+    return this.http.get<any>(`https://www.omdbapi.com/?i=${imdbID}&plot=full&apikey=fd545580`);
+  }
+  
+  getEpisodesBySeason(imdbID: string, season: number) {
+    return this.http.get<any>(`https://www.omdbapi.com/?i=${imdbID}&Season=${season}&apikey=fd545580`);
+  }
 }

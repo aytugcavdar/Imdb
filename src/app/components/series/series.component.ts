@@ -1,57 +1,62 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ImdbService } from '../../services/imdb.service';
-
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-series',
   templateUrl: './series.component.html',
-  styleUrls: ['./series.component.css']
+  styleUrls: ['./series.component.css'],
 })
 export class SeriesComponent implements OnInit {
   searchQuery: string = '';
-  seriesList: any[] = [];
-  selectedSeries: any;
-  seasons: any[] = [];
-  episodes: any[] = [];
+  suggestions: any[] = [];
+  currentTheme = 'light-theme';
 
 
-  constructor(private imdbService: ImdbService) {}
+  searchQuerySubject: Subject<string> = new Subject();
 
-  ngOnInit(): void {}
+  constructor(private imdbService: ImdbService, private router: Router) {}
 
-  search(): void {
-    this.imdbService.searchSeries(this.searchQuery).subscribe(response => {
-      this.seriesList = response.Search || [];
-    });
+  ngOnInit(): void {
+    this.searchQuerySubject
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe((query) => {
+        this.imdbService.searchSeries(query).subscribe(
+          (data: any) => {
+            this.suggestions = data.Search || [];
+          },
+          (error) => {
+            console.error('Error fetching autocomplete data:', error);
+          }
+        );
+      });
   }
 
- 
-  selectSeries(imdbID: string): void {
-    this.imdbService.getSeriesDetails(imdbID).subscribe(response => {
-      console.log(response)
-      this.selectedSeries = response;
-  
-      // Sezonları manuel olarak kontrol et ve sayısını belirle
-      const totalSeasons = +response.totalSeasons;
-      this.seasons = Array.from({ length: totalSeasons }, (_, i) => `Season ${i + 1}`);
-      this.episodes = []; // Sezon seçilince bölümleri sıfırla
-    });
-  }
-  
-  getEpisodes(seasonNumber: number): void {
-    this.imdbService.getSeasonDetails(this.selectedSeries.imdbID, seasonNumber).subscribe(response => {
-      this.episodes = response.Episodes || []; // Bölüm listesi güncelleniyor
-    });
-  }
-  getRatingClass(rating: string): string {
-    if (parseFloat(rating) >= 7) {
-      return 'green';
-    } else if (parseFloat(rating) >= 4) {
-      return 'yellow';
+  onSearch() {
+    if (this.searchQuery.trim()) {
+      this.imdbService.searchSeries(this.searchQuery).subscribe(
+        (data: any) => {
+          this.suggestions = data.Search || [];
+        },
+        (error) => {
+          console.error('Error fetching autocomplete data:', error);
+        }
+      );
     } else {
-      return 'red';
+      this.suggestions = [];
     }
   }
+
+  onOptionSelected(event: any) {
+    const selectedTitle = event.option.value;
+    const selectedSeries = this.suggestions.find((s) => s.Title === selectedTitle);
   
-  
+    if (selectedSeries && selectedSeries.imdbID) {
+      this.router.navigate(['/details', selectedSeries.imdbID]);
+    } else {
+      console.error('Seçilen dizi bilgisi eksik.');
+    }
+  }
+ 
 }
