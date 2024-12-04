@@ -32,7 +32,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     SeriesComponent,
-    SeriesDetailsComponent
+    SeriesDetailsComponent,
+
   ],
   imports: [
     BrowserModule,

@@ -1,319 +1,168 @@
-/* Genel Konteyner */
-.details-container {
-  padding: 40px;
-  max-width: 1200px;
-  margin: 0 auto;
-  font-family: 'Roboto', sans-serif;
-  background: linear-gradient(to bottom, #ffffff, #f7f9fc);
-  border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+/* Genel Ayarlar */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #121212; /* Koyu arka plan */
+  color: white;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-/* Dizi Başlık ve Meta Bilgiler */
+/* Ana Konteyner */
+.details-container {
+  max-width: 1200px; /* Genişliği artırdık */
+  width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Dizi Detay Başlığı */
 .details-header {
   display: flex;
-  gap: 30px;
-  margin-bottom: 40px;
-  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
-.details-header h1 {
-  font-family: 'Poppins', sans-serif;
-  font-size: 3rem;
-  font-weight: bold;
-  color: #222;
-  margin-bottom: 10px;
+.series-poster {
+  width: 180px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
 
 .details-meta {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex: 1;
+}
+
+.details-meta h1 {
+  font-size: 2rem;
+  margin: 0;
+  color: #fdd835;
 }
 
 .year-genre {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 10px;
-}
-
-.year-genre .year {
-  font-weight: bold;
-  color: #555;
-}
-
-.year-genre .genre {
-  background: #f5f5f5;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: #444;
-  font-size: 0.9rem;
+  margin: 10px 0;
+  font-size: 1rem;
+  color: #9e9e9e;
 }
 
 .imdb-rating {
   display: flex;
   align-items: center;
-  font-weight: bold;
-  color: #f5c518;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 .imdb-rating mat-icon {
-  font-size: 1.5rem;
-  margin-right: 8px;
+  color: #fdd835;
+  margin-right: 5px;
 }
 
-.details-header .description {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #555;
-  margin-top: 20px;
-}
-
-/* Dizi Fotoğraf */
-.series-poster {
-  max-width: 250px;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease-in-out;
-}
-
-.series-poster:hover {
-  transform: scale(1.1);
-}
-
-/* Sezonlar Bölümü */
-.seasons-container {
-  margin-top: 40px;
-}
-
-.seasons-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.season-card {
-  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.season-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.season-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: rgba(255, 255, 255, 0.2);
-  transform: rotate(45deg);
-  transition: opacity 0.3s ease;
-  z-index: 0;
-}
-
-.season-card:hover::before {
-  opacity: 1;
-}
-
-.season-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-  z-index: 1;
-  position: relative;
-}
-
-.episodes-list {
-  margin-top: 20px;
-}
-
-.episode-card {
-  background: white;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
-  position: relative;
-}
-
-.episode-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-.episode-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.episode-info p {
-  font-weight: bold;
-  font-size: 1rem;
-  color: #333;
-}
-
-.episode-rating {
-  background-color: #f5c518;
-  padding: 5px 10px;
-  border-radius: 4px;
-  color: white;
-  font-weight: bold;
-}
-
-.episode-description {
-  font-size: 0.9rem;
-  color: #666;
+.description {
   margin-top: 10px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #e0e0e0;
 }
 
-/* Mobil Uyumluluk */
-@media (max-width: 768px) {
-  .details-container {
-    padding: 20px;
-  }
-
-  .details-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .details-header img {
-    max-width: 100%;
-    margin-bottom: 20px;
-  }
-
-  .seasons-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .season-card {
-    padding: 15px;
-  }
-
-  .episode-card {
-    padding: 12px;
-  }
-}
-
-
-
-
-
+/* Rating Tablosu */
 .rating-table {
-  display: grid; /* Grid düzenini kullanarak tabloyu oluşturur */
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Sütunları eşit yapar */
-  gap: 20px; /* Grid hücreleri arasında 20px boşluk bırakır */
-  background-color: #1a1a1a; /* Koyu gri bir arka plan rengi */
-  padding: 20px; /* Tabloya 20px iç boşluk (padding) ekler */
-  border-radius: 12px; /* Tabloyu yuvarlak köşeli yapar */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hafif gölge efekti ekler */
-  color: white; /* Metin rengini beyaz yapar */
-  max-width: 100%; /* Tabloyu tam genişlikte yapar */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Sezonlar yan yana */
+  gap: 20px; /* Sezonlar arası boşluk */
+  margin-top: 20px;
+}
+
+.season-column {
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .season-header {
-  margin-bottom: 20px; /* Altına 20px boşluk ekler */
-  padding: 10px 0; /* Üst ve alt padding 10px, sağ ve sol padding 0px */
-  border-bottom: 2px solid #333; /* Altına 2px kalınlığında gri bir çizgi çizer */
+  text-align: center;
+  background-color: #333333;
+  color: #fdd835;
+  font-size: 1.2rem;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.header-cell {
-  font-size: 1.2rem; /* Yazı boyutunu 1.2 rem (root em) olarak ayarlar */
-  background-color: #444; /* Arka plan rengini koyu gri yapar */
-  color: white; /* Yazı rengini beyaz yapar */
-  padding: 12px; /* Hücreye 12px iç boşluk ekler */
-  text-align: center; /* Yazıyı ortalar */
-  border-radius: 5px; /* Köşeleri yuvarlatır */
-  font-weight: bold; /* Yazıyı kalın yapar */
-}
-
+/* Bölüm Satırları */
 .episode-row {
-  display: flex; /* Flexbox düzeni kullanarak satırdaki öğeleri hizalar */
-  justify-content: space-between; /* Öğeleri yatayda eşit mesafeye yayar */
-  align-items: center; /* Yatayda ortalar */
-  margin: 8px 0; /* Üst ve altına 8px boşluk ekler */
-  padding: 8px 0; /* Üst ve alt padding 8px */
-  border-bottom: 1px solid #333; /* Altına 1px kalınlığında gri bir çizgi çizer */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #222222;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 8px; /* Bölümler arası boşluk */
 }
 
 .row-header {
-  background-color: #333; /* Arka plan rengini koyu gri yapar */
-  padding: 8px; /* İçeriye 8px padding ekler */
-  text-align: center; /* Yazıyı ortalar */
-  border-radius: 5px; /* Köşeleri yuvarlatır */
-  font-weight: bold; /* Yazıyı kalın yapar */
+  font-weight: bold;
+  font-size: 1rem;
+  color: white;
 }
 
 .rating-cell {
-  text-align: center; /* Yazıyı hücrede ortalar */
-  padding: 8px; /* Hücreye 8px iç boşluk ekler */
-  font-weight: bold; /* Yazıyı kalın yapar */
-  border-radius: 5px; /* Hücre köşelerini yuvarlatır */
-  width: 80px; /* Hücre genişliğini 80px yapar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+  height: 40px;
+  width: 60px;
+  border-radius: 8px;
+  color: white;
+  text-align: center;
 }
 
+/* IMDb Rating Renkleri */
 .rating-cell.awesome {
-  background-color: #28a745; /* Yeşil renk (mükemmel) */
-  color: white; /* Yazıyı beyaz yapar */
+  background-color: #1faa00;
 }
 
 .rating-cell.great {
-  background-color: #17a2b8; /* Mavi renk (harika) */
-  color: white; /* Yazıyı beyaz yapar */
+  background-color: #43a047;
 }
 
 .rating-cell.good {
-  background-color: #ffc107; /* Sarı renk (iyi) */
-  color: black; /* Yazıyı siyah yapar */
+  background-color: #fdd835;
+  color: black;
 }
 
 .rating-cell.regular {
-  background-color: #fd7e14; /* Turuncu renk (normal) */
-  color: white; /* Yazıyı beyaz yapar */
+  background-color: #ff9800;
 }
 
 .rating-cell.bad {
-  background-color: #dc3545; /* Kırmızı renk (kötü) */
-  color: white; /* Yazıyı beyaz yapar */
+  background-color: #d32f2f;
 }
 
 .rating-cell.garbage {
-  background-color: #6c757d; /* Gri renk (çöp) */
-  color: white; /* Yazıyı beyaz yapar */
+  background-color: #616161;
 }
 
-/* Responsif tasarım için medya sorguları */
-@media screen and (max-width: 768px) {
+/* Responsive Ayarlar */
+@media (max-width: 768px) {
+  .details-header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .series-poster {
+    width: 150px;
+  }
+
   .rating-table {
-    grid-template-columns: 1fr; /* Mobilde tek sütun yapar */
-    padding: 15px; /* 15px iç boşluk ekler */
-  }
-
-  .header-cell {
-    font-size: 1rem; /* Yazı boyutunu biraz küçültür */
-  }
-
-  .episode-row {
-    flex-direction: column; /* Satırdaki öğeleri dikey yapar */
-    align-items: flex-start; /* Öğeleri sola hizalar */
-  }
-
-  .rating-cell {
-    width: 100%; /* Hücre genişliğini %100 yapar */
-    margin-bottom: 10px; /* Altına 10px boşluk ekler */
+    grid-template-columns: 1fr;
   }
 }

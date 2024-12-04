@@ -1,23 +1,7 @@
-/* Light Theme */
-.light-theme {
-    --primary-color: #3f51b5;
-    --accent-color: #ff4081;
-    --background-color: #ffffff;
-    --text-color: #000000;
-  }
-  
-  /* Dark Theme */
-  .dark-theme {
-    --primary-color: #1e88e5;
-    --accent-color: #f50057;
-    --background-color: #121212;
-    --text-color: #ffffff;
-  }
-  
-  /* Genel CSS için değişkenleri kullan */
+
   body {
-    background-color: var(--background-color);
-    color: var(--text-color);
+
+
   }
 
     

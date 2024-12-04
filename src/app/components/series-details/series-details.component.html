@@ -1,5 +1,4 @@
 <div class="details-container">
-  <!-- Dizi Başlık ve Genel Bilgiler -->
   <div class="details-header">
     <img *ngIf="series?.Poster" [src]="series?.Poster" alt="{{ series?.Title }}" class="series-poster" />
     <div class="details-meta">
@@ -12,29 +11,20 @@
         <mat-icon>star</mat-icon>
         <span>{{ series?.imdbRating }} / 10</span>
       </div>
+      <p class="description">{{ series?.Plot }}</p>
     </div>
-    <p class="description">{{ series?.Plot }}</p>
   </div>
 
-
-<div class="rating-table">
-  <div *ngFor="let season of totalSeasons" class="season-header">
-    <div class="header-cell">S{{ season }}</div>
-    
-    <!-- Sezon altındaki bölümleri sıralama -->
-    <div *ngFor="let episode of getEpisodesForSeason(season)" class="episode-row">
-      <div class="row-header">E{{ episode.episodeNumber }}</div>
-      <div class="rating-cell" [ngClass]="getRatingClass(episode.imdbRating)">
-        {{ episode.imdbRating }}
+  <!-- Sezonlar ve Bölümler -->
+  <div class="rating-table">
+    <div *ngFor="let season of totalSeasons" class="season-column">
+      <div class="season-header">S{{ season }}</div>
+      <div *ngFor="let episode of getEpisodesForSeason(season)" class="episode-row">
+        <div class="row-header">E{{ episode.episodeNumber }}</div>
+        <div class="rating-cell" [ngClass]="getRatingClass(episode.imdbRating)">
+          {{ episode.imdbRating }}
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-
-  
-
-
-
-  
-

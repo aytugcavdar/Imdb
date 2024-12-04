@@ -1,5 +1,4 @@
 <div class="search-container">
-  <!-- Arama Formu -->
   <mat-form-field class="search-bar" appearance="outline">
     <mat-label>Dizi ara...</mat-label>
     <input
@@ -20,4 +19,6 @@
     </mat-autocomplete>
   </mat-form-field>
 </div>
+
+<div *ngIf="noResults" class="no-results">Sonuç bulunamadı.</div>
 

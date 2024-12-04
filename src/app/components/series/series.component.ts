@@ -11,9 +11,7 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 export class SeriesComponent implements OnInit {
   searchQuery: string = '';
   suggestions: any[] = [];
-  currentTheme = 'light-theme';
-
-
+  noResults: boolean = false; // Sonuç bulunamadığında gösterilecek durum
   searchQuerySubject: Subject<string> = new Subject();
 
   constructor(private imdbService: ImdbService, private router: Router) {}
@@ -22,41 +20,35 @@ export class SeriesComponent implements OnInit {
     this.searchQuerySubject
       .pipe(debounceTime(300), distinctUntilChanged())
       .subscribe((query) => {
-        this.imdbService.searchSeries(query).subscribe(
-          (data: any) => {
-            this.suggestions = data.Search || [];
-          },
-          (error) => {
-            console.error('Error fetching autocomplete data:', error);
-          }
-        );
+        if (query.trim()) {
+          this.imdbService.searchSeries(query).subscribe(
+            (data: any) => {
+              this.suggestions = data.Search || [];
+              this.noResults = this.suggestions.length === 0;
+            },
+            (error) => {
+              console.error('Error fetching autocomplete data:', error);
+            }
+          );
+        } else {
+          this.suggestions = [];
+          this.noResults = false;
+        }
       });
   }
 
-  onSearch() {
-    if (this.searchQuery.trim()) {
-      this.imdbService.searchSeries(this.searchQuery).subscribe(
-        (data: any) => {
-          this.suggestions = data.Search || [];
-        },
-        (error) => {
-          console.error('Error fetching autocomplete data:', error);
-        }
-      );
-    } else {
-      this.suggestions = [];
-    }
+  onSearch(): void {
+    this.searchQuerySubject.next(this.searchQuery);
   }
 
-  onOptionSelected(event: any) {
+  onOptionSelected(event: any): void {
     const selectedTitle = event.option.value;
     const selectedSeries = this.suggestions.find((s) => s.Title === selectedTitle);
-  
+
     if (selectedSeries && selectedSeries.imdbID) {
       this.router.navigate(['/details', selectedSeries.imdbID]);
     } else {
       console.error('Seçilen dizi bilgisi eksik.');
     }
   }
- 
 }
